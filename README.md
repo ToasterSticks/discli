@@ -1,1 +1,3 @@
 # discli
+
+Terminal discord (wip)
