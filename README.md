@@ -3,13 +3,13 @@
 Terminal discord client made in node.js
 
 Do you love discord? Do you love terminals?
-Then this is the perfect client for you. log into you discord account through your terminal with `discli`, a terminal discord client made in node.js using typescript.
+Then this is the perfect client for you. log in to you discord account through your terminal with `discli`, a terminal discord client made in node.js using typescript.
 
-NOTE: `discli` is against discord TOS and using discli *could* get you banned, I have yet to be banned for using discli but you run the risk of being banned if you're using `discli` so use at your own discretion.
+NOTE: `discli` is against discord TOS and using discli *can* get you banned, I have yet to be banned for using discli but you run the risk of being banned if you're using `discli` so use at your own discretion.
 
 ## Getting started
 
-discli is still in it's early stages so youre gonna need to do a tiny bit of work to get it running.
+discli is still in it's early stages so you're gonna need to do a tiny bit of work to get it running.
 
 you're gonna need [node.js](https://nodejs.org/en/) installed, this guide assumes that you already do.
 
@@ -17,7 +17,7 @@ you're gonna need [node.js](https://nodejs.org/en/) installed, this guide assume
 
 go to your desired folder in the terminal and type
 ```
-git clone "https://nodejs.org/en/"
+git clone "https://github.com/itsUrcute/discli"
 ```
 after the repo has been cloned, do
 ```
@@ -43,13 +43,13 @@ npm install
 
 
 #### 4. building discli
-build discli with tsc
+build discli with tsc:
 ```
 npx tsc
 ```
 
 #### 5. running discli
-run discli using
+run discli using:
 ```
 npm run start
 ```
