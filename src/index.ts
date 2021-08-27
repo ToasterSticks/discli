@@ -82,7 +82,7 @@ const client = new Client(options).on("ready", () => {
 		client.components.screen.render();
 	});
 
-	client.components.screen.key(["escape", "C-c"], function () {
+	client.components.screen.key(["escape", "C-c"], () => {
 		return process.exit(0);
 	});
 

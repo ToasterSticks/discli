@@ -4,6 +4,6 @@ export interface Command {
 	data: {
 		name: string;
 		description?: string;
-	}
-	execute(input: string, client: Client): void;	
+	};
+	execute(input: string, client: Client): Promise<void>;
 }
