@@ -6,7 +6,7 @@ const command: Command = {
 		name: "channel",
 		description: "Change current channel",
 	},
-	execute(input, client: Client) {
+	async execute(input, client: Client) {
 		let channel;
 		// A single channel id as param
 		if (/^\d{17,19}$/.test(input)) {
