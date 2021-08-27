@@ -12,7 +12,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"blessed": "^0.1.81",
-		"discord.js": "^13.1.0",
+		"discord.js": "github:itsUrcute/discord.js#stable",
 		"extended-collections": "^2.1.0"
 	},
 	"devDependencies": {
