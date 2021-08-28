@@ -1,4 +1,3 @@
-import { resolveEmojis } from "#src";
 import { log, screen, textarea, Widgets } from "blessed";
 import { Client, ClientOptions, TextChannel } from "discord.js";
 import { ExtendedMap } from "extended-collections";
@@ -9,6 +8,7 @@ import { Command } from "./types/Command";
 import { DiscordEvent } from "./types/DiscordEvent";
 import { chatBoxOptions, chatInputOptions } from "./ui/components";
 import { loadFiles } from "./utils/loadFiles";
+import { resolveEmojis } from './utils/resolveEmojis';
 import { resolveMentions } from "./utils/resolveMentions";
 import { runCommand } from "./utils/runCommand";
 import { startEventHandler } from "./utils/startEventHandler";

@@ -1,7 +1,7 @@
-import { Client, GuildEmoji, Message } from "discord.js";
+import { Client, GuildEmoji } from "discord.js";
 
-export function resolveEmojis(str: Message, client: Client): string {
-	return str.content.replace(/:([\w-]{2,32}):/g, (match, g1) => {
+export function resolveEmojis(str: string, client: Client): string {
+	return str.replace(/:([\w-]{2,32}):/g, (match, g1) => {
 		const hasPremium = client.user!.premium;
 
 		const predicate = ({ name, animated }: GuildEmoji) =>

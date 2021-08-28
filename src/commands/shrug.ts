@@ -1,4 +1,4 @@
-import { resolveEmojis } from "#src";
+import { resolveEmojis } from '../utils/resolveEmojis';
 import { Command } from "../types/Command";
 import { resolveMentions } from "../utils/resolveMentions";
 
@@ -9,7 +9,7 @@ const command: Command = {
 	},
 	async execute(input, client) {
 		client.currentChannel.send(
-			`${resolveEmojis(resolveMentions(input, client))} ¯\\_(ツ)\_/¯`
+			`${resolveEmojis(resolveMentions(input, client), client)} ¯\\_(ツ)\_/¯`
 		);
 	},
 };
