@@ -51,7 +51,9 @@ export class CacheChannel {
 	}
 
 	editMessage(message: Message) {
-		this.messages.update(message.id, () => message);
+		try {
+			this.messages.update(message.id, () => message);
+		} catch {}
 		this.messageList = this.newMessageList();
 		if (message.channelId === message.client.currentChannel.id) {
 			message.client.components.chatBox.setContent(this.displayString());
