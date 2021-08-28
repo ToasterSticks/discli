@@ -1,11 +1,8 @@
 import { Client, GuildEmoji, Message } from "discord.js";
 
 function resolveAttachmentLinks(message: Message, attachments = true) {
-	let attachmentLinks = message.attachments.map((x) => x.proxyURL).join("\n");
-	if (attachmentLinks.length) {
-		attachmentLinks = "\n" + attachmentLinks;
-	}
-	return message.content + (attachments ? attachmentLinks : "");
+	const attachmentLinks = message.attachments.map((x) => x.proxyURL).join("\n");
+	return (message.content + (attachments ? `\n${attachmentLinks}` : "")).trim();
 }
 
 function resolveMentions(input: string, client: Client) {
