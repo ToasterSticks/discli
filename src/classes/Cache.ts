@@ -92,9 +92,7 @@ export class CacheChannel {
 				message.member?.displayColor
 					? hex(message.member.displayHexColor)(message.author.tag)
 					: message.author.tag
-			}: ${
-				highlightedMentions
-			}`,
+			}: ${highlightedMentions}`,
 			message.channel
 		);
 	}
