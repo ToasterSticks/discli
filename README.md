@@ -34,7 +34,7 @@ export const config = {
   prefix: "your-command-prefix" // the prefix you want discli commands to use
 }
 ```
-#### 3. Installing dependancies
+#### 3. Installing dependencies
 
 use npm to install the dependancies (make sure you have npm):
 ```
