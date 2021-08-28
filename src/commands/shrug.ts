@@ -1,6 +1,5 @@
-import { resolveEmojis } from '../utils/resolveEmojis';
+import { resolveEmojis, resolveMentions } from '../utils/resolve';
 import { Command } from "../types/Command";
-import { resolveMentions } from "../utils/resolveMentions";
 
 const command: Command = {
 	data: {

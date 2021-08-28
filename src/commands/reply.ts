@@ -1,4 +1,4 @@
-import { resolveMentions } from "../utils/resolveMentions";
+import { resolveEmojis, resolveMentions } from "../utils/resolve";
 import { TextChannel } from "discord.js";
 import { Command } from "../types/Command";
 
@@ -44,7 +44,7 @@ const command: Command = {
 			return;
 		}
 		message.reply({
-			content: resolveMentions(content, client),
+			content: resolveEmojis(resolveMentions(content, client), client),
 			allowedMentions: { repliedUser: mention },
 		});
 	},
