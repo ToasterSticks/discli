@@ -10,6 +10,7 @@ import { Command } from "./types/Command";
 import { loadFiles } from "./utils/loadFiles";
 import { join } from "path";
 import { runCommand } from "./utils/runCommand";
+import { resolveMentions } from "./utils/resolveMentions";
 
 const { token, defaultChannel, prefix } = config;
 
@@ -78,7 +79,7 @@ const client = new Client(options).on("ready", () => {
 		if (!/\S+/.test(input)) return;
 		client.components.chatInput.clearValue();
 		if (input.startsWith(prefix)) return runCommand(input, client);
-		client.currentChannel.send(input);
+		client.currentChannel.send(resolveMentions(input, client));
 		client.components.screen.render();
 	});
 
