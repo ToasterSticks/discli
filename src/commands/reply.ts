@@ -1,3 +1,4 @@
+import { resolveMentions } from "../utils/resolveMentions";
 import { TextChannel } from "discord.js";
 import { Command } from "../types/Command";
 
@@ -43,7 +44,7 @@ const command: Command = {
 			return;
 		}
 		message.reply({
-			content: content,
+			content: resolveMentions(content, client),
 			allowedMentions: { repliedUser: mention },
 		});
 	},
