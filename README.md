@@ -66,8 +66,12 @@ by default the client is gonna be in the `defaultChannel` that you set earlier b
 
 note: here, `/` is a placeholder for your prefix.
 
-`/channel channel-id`: go to a specific channel by id.
-`/channel guild name channel-name`: go to a channel in a guild by name.
+- `/channel channel-id`: go to a specific channel by id.
+- `/channel guild name channel-name`: go to a channel in a guild by name.
+- `/reply message-id message`: reply to a message by id.
+- `/reply n message`: reply to the `n`th message from the bottom of your screen.
+- `/shrug`: equivalent of `/shrug` in discord.
+- `/memory`: displays the amount of memory discli uses in MB.
 
 =====================================================================================================
 
