@@ -5,7 +5,7 @@ export function resolveEmojis(str: string, client: Client): string {
 		const hasPremium = client.user!.premium;
 
 		const predicate = ({ name, animated }: GuildEmoji) =>
-			(hasPremium ? true : !animated) && name === g1;
+			(hasPremium || !animated) && name === g1;
 
 		const emoji =
 			client.currentGuild.emojis.cache.find(predicate) ?? hasPremium
