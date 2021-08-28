@@ -3,7 +3,7 @@ import { Client, GuildEmoji, Message } from "discord.js";
 
 function resolveAttachmentLinks(message: Message, attachments = true) {
 	const attachmentLinks = message.attachments.map((x) => x.proxyURL).join("\n");
-	return (message.content + (attachments ? `\n${underline(attachmentLinks)}` : '')).trim();
+	return (message.content + (attachments ? `\n ${underline(attachmentLinks)}` : '')).trim();
 }
 
 function resolveMentions(input: string, client: Client) {

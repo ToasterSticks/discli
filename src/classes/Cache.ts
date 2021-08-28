@@ -1,7 +1,7 @@
-import { bgHex, blue, bold, gray, hex } from "chalk";
-import { Client, Message, Util } from "discord.js";
-import { ExtendedMap } from "extended-collections";
-import { resolveAttachmentLinks } from "../utils/resolve";
+import { blue, bold, gray, hex } from 'chalk';
+import { Client, Message, Util } from 'discord.js';
+import { ExtendedMap } from 'extended-collections';
+import { resolveAttachmentLinks } from '../utils/resolve';
 
 export class Cache {
 	cacheLimit: number;
@@ -9,10 +9,7 @@ export class Cache {
 	constructor(client: Client, cacheLimit = 50, attachments = true) {
 		this.cacheLimit = cacheLimit;
 		const channels = client.channels.cache.map((_, key) => {
-			const arr: [string, CacheChannel] = [
-				key,
-				new CacheChannel(cacheLimit, attachments),
-			];
+			const arr: [string, CacheChannel] = [key, new CacheChannel(cacheLimit, attachments)];
 			return arr;
 		});
 		this.channels = new ExtendedMap(channels);
@@ -80,19 +77,32 @@ export class CacheChannel {
 			resolveAttachmentLinks(message, this.attachments) +
 			(message.editedTimestamp ? gray(' (edited)') : '');
 
-		const highlightMention = (match: string, id: string) =>
-			message.mentions.has(message.client.user!) && id === message.client.user!.id
+		const highlightMention = (match: string, id: string) => {
+			if (message.guild!.channels.cache.has(id)) return blue(match);
+
+			const role = message.guild!.roles.cache.get(id);
+
+			if (role) {
+				const roleColor = role.color ? role.hexColor : '#d3d3d3';
+
+				return message.member!.roles.cache.has(id)
+					? bold(hex(roleColor)(match))
+					: hex(roleColor)(match);
+			}
+
+			return message.mentions.has(message.client.user!) && id === message.client.user!.id
 				? bold(blue(match))
 				: blue(match);
+		};
 
-		const highlightedMentions = msgStr.replace(/<@!?(\d{17,19})>/g, highlightMention);
+		const highlightedMentions = msgStr.replace(/<(?:@[!&]|#)(\d{17,19})>/g, highlightMention);
 
 		return Util.cleanContent(
 			` ${
 				message.member?.displayColor
 					? hex(message.member.displayHexColor)(message.author.tag)
 					: message.author.tag
-			}: ${highlightedMentions}`,
+			}: ${highlightedMentions.replaceAll('@everyone', bold(blue('@everyone')))}`,
 			message.channel
 		);
 	}
