@@ -1,5 +1,6 @@
 import type { Client, Message } from "discord.js";
 import { ExtendedMap } from "extended-collections";
+import { resolveAttachmentLinks } from "../utils/resolve";
 
 export class Cache {
 	cacheLimit: number;
@@ -31,18 +32,35 @@ export class CacheChannel {
 	addMessage(message: Message) {
 		if (!message.content && !message.attachments.size) return;
 		this.messages.set(message.id, message);
-		let attachmentLinks = message.attachments.map((x) => x.proxyURL).join("\n");
-		if (attachmentLinks.length) {
-			attachmentLinks = "\n" + attachmentLinks;
-		}
-		const msgStr = message.content + (this.attachments ? attachmentLinks : "");
-		this.messageList.push(`${message.author.tag}: ${msgStr}`);
+		this.messageList.push(this.formatMessage(message));
 		if (this.messages.size > this.max) {
 			const firstKey = this.messages.at(0)?.[0];
 			if (!firstKey) return this.messages.size;
 			this.messages.delete(firstKey);
 			this.messageList.shift();
 		}
+	}
+
+	removeMessage(message: Message) {
+		this.messages.delete(message.id);
+		this.messageList = this.newMessageList();
+		if (message.channelId === message.client.currentChannel.id) {
+			message.client.components.chatBox.setContent(this.displayString());
+			message.client.components.chatBox.render();
+		}
+	}
+
+	editMessage(message: Message) {
+		this.messages.update(message.id, () => message);
+		this.messageList = this.newMessageList();
+		if (message.channelId === message.client.currentChannel.id) {
+			message.client.components.chatBox.setContent(this.displayString());
+			message.client.components.chatBox.render();
+		}
+	}
+
+	newMessageList() {
+		return [...this.messages.values()].map(this.formatMessage, this);
 	}
 
 	addText(str: string) {
@@ -52,5 +70,12 @@ export class CacheChannel {
 
 	displayString() {
 		return this.messageList.join("\n");
+	}
+
+	formatMessage(message: Message) {
+		const msgStr =
+			resolveAttachmentLinks(message, this.attachments) +
+			(message.editedTimestamp ? " (edited)" : "");
+		return `${message.author.tag}: ${msgStr}`;
 	}
 }
