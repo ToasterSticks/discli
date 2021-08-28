@@ -1,4 +1,4 @@
-import { bgHex, bgYellow, blue, gray, hex } from "chalk";
+import { bgHex, blue, bold, gray, hex } from "chalk";
 import { Client, Message, Util } from "discord.js";
 import { ExtendedMap } from "extended-collections";
 import { resolveAttachmentLinks } from "../utils/resolve";
@@ -81,17 +81,19 @@ export class CacheChannel {
 			(message.editedTimestamp ? gray(' (edited)') : '');
 
 		const highlightMention = (match: string, id: string) =>
-			id === message.client.user!.id ? bgHex('#4b4d72')(blue(match)) : match;
+			message.mentions.has(message.client.user!) && id === message.client.user!.id
+				? bold(blue(match))
+				: blue(match);
+
+		const highlightedMentions = msgStr.replace(/<@!?(\d{17,19})>/g, highlightMention);
 
 		return Util.cleanContent(
-			`${
+			` ${
 				message.member?.displayColor
 					? hex(message.member.displayHexColor)(message.author.tag)
 					: message.author.tag
 			}: ${
-				message.mentions.has(message.client.user!)
-					? msgStr.replace(/<@!?(\d{17,19})>/g, highlightMention)
-					: msgStr
+				highlightedMentions
 			}`,
 			message.channel
 		);
