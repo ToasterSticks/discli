@@ -34,7 +34,7 @@ declare module "discord.js" {
 
 const options: ClientOptions = {};
 
-const client = new Client(options).on("ready", () => {
+const client = new Client(options).on("ready", async () => {
 	let cc =
 		client.channels.cache.get(defaultChannel) ||
 		client.channels.cache.find((ch) => ch.isText());
@@ -93,6 +93,14 @@ const client = new Client(options).on("ready", () => {
 	client.components.chatInput.focus();
 
 	client.components.screen.render();
+
+	const messages = await client.currentChannel.messages.search({ sortOrder: 'asc' });
+
+	for (const message of messages.values()) client.emit('messageCreate', message);
 });
 
 client.login(token);
+
+function x({ cache = true, ...query } = {}) {
+	return query
+};
