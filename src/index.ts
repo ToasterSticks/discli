@@ -1,16 +1,17 @@
-import { Widgets, screen, log, textarea } from "blessed";
+import { resolveEmojis } from "#src";
+import { log, screen, textarea, Widgets } from "blessed";
 import { Client, ClientOptions, TextChannel } from "discord.js";
-import { Cache } from "./classes/Cache";
-import { chatBoxOptions, chatInputOptions } from "./ui/components";
-import { startEventHandler } from "./utils/startEventHandler";
-import { config } from "./config";
 import { ExtendedMap } from "extended-collections";
-import { DiscordEvent } from "./types/DiscordEvent";
-import { Command } from "./types/Command";
-import { loadFiles } from "./utils/loadFiles";
 import { join } from "path";
-import { runCommand } from "./utils/runCommand";
+import { Cache } from "./classes/Cache";
+import { config } from "./config";
+import { Command } from "./types/Command";
+import { DiscordEvent } from "./types/DiscordEvent";
+import { chatBoxOptions, chatInputOptions } from "./ui/components";
+import { loadFiles } from "./utils/loadFiles";
 import { resolveMentions } from "./utils/resolveMentions";
+import { runCommand } from "./utils/runCommand";
+import { startEventHandler } from "./utils/startEventHandler";
 
 const { token, defaultChannel, prefix } = config;
 
@@ -79,7 +80,7 @@ const client = new Client(options).on("ready", () => {
 		if (!/\S+/.test(input)) return;
 		client.components.chatInput.clearValue();
 		if (input.startsWith(prefix)) return runCommand(input, client);
-		client.currentChannel.send(resolveMentions(input, client));
+		client.currentChannel.send(resolveEmojis(resolveMentions(input, client), client));
 		client.components.screen.render();
 	});
 
