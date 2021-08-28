@@ -72,7 +72,7 @@ const client = new Client(options).on("ready", () => {
 	loadFiles(client.maps.commands, join(__dirname, "commands"), client);
 	client.components.chatBox.setContent(`Logged in as ${client.user!.username}`);
 
-	client.cache = new Cache(client);
+	client.cache = new Cache(client, 50, true);
 
 	client.components.chatInput.key("enter", () => {
 		const input = client.components.chatInput.value;
