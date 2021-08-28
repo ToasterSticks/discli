@@ -41,7 +41,8 @@ const command: Command = {
 		client.currentChannel = channel;
 		client.currentGuild = channel.guild;
 		client.components.chatBox.setContent(ch.displayString());
-		client.appendToScreen(`discli: joined #${channel.name}`)
+		client.appendToScreen(`discli: joined #${channel.name}`);
+		client.components.screen.title = `discli (${client.currentGuild.name})`;
 		client.components.screen.render();
 	},
 };
