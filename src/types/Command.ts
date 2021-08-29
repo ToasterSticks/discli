@@ -6,5 +6,5 @@ export interface Command {
 		description: string;
 		usage: string;
 	};
-	execute(input: string, client: Client): Promise<void>;
+	execute(input: string, client: Client<true>): Promise<void>;
 }

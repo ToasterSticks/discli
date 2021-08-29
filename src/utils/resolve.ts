@@ -1,19 +1,15 @@
 import type { Client, GuildEmoji, Message } from "discord.js";
+import { underline } from "chalk";
 
 function resolveAttachmentLinks(message: Message, attachments = true) {
-	let attachmentLinks = message.attachments.map((x) => x.proxyURL).join("\n");
-	if (attachmentLinks.length) {
-		attachmentLinks = `\n${attachmentLinks}`;
-	}
-	return message.content + (attachments ? attachmentLinks : "");
+	const attachmentLinks = message.attachments.map((x) => x.proxyURL).join("\n");
+	return (message.content + (attachments ? `\n${underline(attachmentLinks)}` : "")).trim();
 }
 
-function resolveMentions(input: string, client: Client) {
+function resolveMentions(input: string, client: Client<true>) {
 	// resolve #channel
 	input = input.replace(/#([\w-]{1,100})/g, (match, g1) => {
-		const channel = client.currentGuild.channels.cache.find(
-			(x) => x.name === g1.toLowerCase()
-		);
+		const channel = client.currentGuild.channels.cache.find((x) => x.name === g1.toLowerCase());
 		return channel ? `<#${channel.id}>` : match;
 	});
 	// resolve @username#tag
@@ -23,15 +19,15 @@ function resolveMentions(input: string, client: Client) {
 	});
 	// resolve @role
 	input = input.replace(/@(.{1,100})/g, (match, g1) => {
-		const role = client.currentGuild.roles.cache.find(r => r.name === g1);
+		const role = client.currentGuild.roles.cache.find((r) => r.name === g1);
 		return role ? `<@&${role.id}>` : match;
 	});
 	return input;
 }
 
-function resolveEmojis(str: string, client: Client): string {
+function resolveEmojis(str: string, client: Client<true>): string {
 	return str.replace(/:([\w-]{2,32}):/g, (match, g1) => {
-		const hasPremium = client.user!.premium;
+		const hasPremium = client.user.premium;
 
 		const predicate = ({ name, animated }: GuildEmoji) => (hasPremium || !animated) && name === g1;
 

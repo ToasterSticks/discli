@@ -8,6 +8,7 @@ const event: DiscordEvent = {
 		event: "messageCreate"
 	},
 	async execute(message: Message) {
+		if (!message.client.isReady()) return;
 		const { client } = message;
 		const ch = client.cache.channels.get(message.channelId);
 		if (!ch) return;

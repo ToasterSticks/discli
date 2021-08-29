@@ -1,13 +1,14 @@
 import type { Command } from "../types/Command";
 import { config } from "../config";
+import { stripIndents } from "common-tags";
 
 const command: Command = {
 	data: {
 		name: "help",
 		description: "show description and usage of commands",
 		usage: `
-- {{prefix}}help
-- {{prefix}}help [command name]
+			- {{prefix}}help
+			- {{prefix}}help [command name]
 		`
 	},
 	async execute(input, client) {
@@ -17,7 +18,9 @@ const command: Command = {
 		} else {
 			const { name, description, usage } = command.data;
 			client.appendToScreen(
-				`${config.prefix}${name}: ${description}\nusage:\n${usage.replaceAll("{{prefix}}", config.prefix).trim()}`
+				stripIndents`${config.prefix}${name}: ${description}\nusage:\n${usage
+					.replaceAll("{{prefix}}", config.prefix)
+					.trim()}`
 			);
 		}
 	}

@@ -5,13 +5,12 @@ const command: Command = {
 		name: "memory",
 		description: "display memory usage",
 		usage: `
-- {{prefix}}memory
+			- {{prefix}}memory
 `
 	},
 	async execute(_, client) {
 		client.appendToScreen(`Memory usage: ${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}mb`);
 	}
-
 };
 
 export default command;

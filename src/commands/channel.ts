@@ -7,11 +7,11 @@ const command: Command = {
 		name: "channel",
 		description: "Change current channel",
 		usage: `
-- {{prefix}}channel [Server Name] [channel-name]
-- {{prefix}}channel [channel-id]
+			- {{prefix}}channel [Server Name] [channel-name]
+			- {{prefix}}channel [channel-id]
 		`
 	},
-	async execute(input, client: Client) {
+	async execute(input, client: Client<true>) {
 		let channel;
 		// A single channel id as param
 		if (/^\d{17,19}$/.test(input)) {
@@ -41,12 +41,12 @@ const command: Command = {
 		}
 		const ch = client.cache.channels.get(channel.id);
 		if (!ch) return;
+		client.lastChannel = client.currentChannel;
 		client.currentChannel = channel;
 		client.currentGuild = channel.guild;
 		client.components.chatBox.setContent(ch.displayString());
-		client.appendToScreen(`discli: joined #${channel.name}`);
 		client.components.screen.title = `discli (${client.currentGuild.name})`;
-		client.components.screen.render();
+		client.appendToScreen(`discli: joined #${channel.name}`);
 	}
 };
 
