@@ -1,3 +1,4 @@
+import type { Channel } from "discord.js";
 import { TextChannel } from "discord.js";
 
 import type { Command } from "../types/Command";
@@ -12,10 +13,10 @@ const command: Command = {
 		`
 	},
 	async execute(input, client) {
-		let channel: TextChannel | undefined;
+		let channel: Channel | undefined;
 		// A single channel id as param
 		if (/^\d{17,19}$/.test(input)) {
-			channel = client.channels.cache.get(input) as TextChannel | undefined;
+			channel = client.channels.cache.get(input);
 			// {prefix}channel guild name channel-name
 		} else if (/^.+ #?\S+$/.test(input)) {
 			const match = /^(?<guildName>.+) #?(?<channelName>\S+)$/.exec(input);
@@ -33,7 +34,7 @@ const command: Command = {
 		} else {
 			client.appendToScreen("discli: Invalid arguments");
 		}
-		if (!channel) {
+		if (!(channel instanceof TextChannel)) {
 			client.appendToScreen("discli: Invalid channel");
 			return;
 		}
