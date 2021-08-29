@@ -2,6 +2,7 @@ import { Widgets } from "blessed";
 
 export const chatBoxOptions: Widgets.LogOptions = {
 	scrollable: true,
+	mouse: true,
 	scrollbar: {
 		style: {
 			bg: 'blue',
