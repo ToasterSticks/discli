@@ -1,6 +1,7 @@
+import { TextChannel } from "discord.js";
+
 import type { DiscordEvent } from "../types/DiscordEvent";
 import type { Message } from "discord.js";
-import { TextChannel } from "discord.js";
 
 const event: DiscordEvent = {
 	data: {

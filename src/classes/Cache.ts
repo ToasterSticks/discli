@@ -1,9 +1,10 @@
-import type { Client, Message } from "discord.js";
 import { blue, bold, gray, hex } from "chalk";
 import { ExtendedMap } from "extended-collections";
 import { Util } from "discord.js";
 import { highlightMentions } from "../utils/highlightMentions";
 import { resolveAttachmentLinks } from "../utils/resolve";
+
+import type { Client, Message } from "discord.js";
 
 export class Cache {
 	private readonly cacheLimit: number;
@@ -79,7 +80,7 @@ export class CacheChannel {
 			resolveAttachmentLinks(message, this.attachments) + (message.editedTimestamp ? gray(" (edited)") : "");
 
 		const highlightedMentions = msgStr.replace(/<(@[!&]|#)(\d{17,19})>/g, (...groups: [string, string, string]) =>
-			highlightMentions(...groups, message)
+			highlightMentions(groups, message)
 		);
 
 		return Util.cleanContent(

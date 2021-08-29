@@ -1,5 +1,6 @@
-import type { Client, GuildEmoji, Message } from "discord.js";
 import { underline } from "chalk";
+
+import type { Client, GuildEmoji, Message } from "discord.js";
 
 function resolveAttachmentLinks(message: Message, attachments = true) {
 	const attachmentLinks = message.attachments.map((x) => x.proxyURL).join("\n");

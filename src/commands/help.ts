@@ -1,6 +1,7 @@
-import type { Command } from "../types/Command";
 import { config } from "../config";
 import { stripIndents } from "common-tags";
+
+import type { Command } from "../types/Command";
 
 const command: Command = {
 	data: {

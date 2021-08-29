@@ -1,9 +1,9 @@
-import type { Client, ClientEvents } from "discord.js";
-import type { DiscordEvent } from "../types/DiscordEvent";
 import { ExtendedMap } from "extended-collections";
 import { join } from "path";
-
 import { loadFiles } from "./loadFiles";
+
+import type { Client, ClientEvents } from "discord.js";
+import type { DiscordEvent } from "../types/DiscordEvent";
 
 async function startEventHandler(client: Client<true>): Promise<ExtendedMap<string, DiscordEvent>> {
 	const { events } = client.maps;

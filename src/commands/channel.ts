@@ -1,6 +1,7 @@
+import { TextChannel } from "discord.js";
+
 import type { Client } from "discord.js";
 import type { Command } from "../types/Command";
-import { TextChannel } from "discord.js";
 
 const command: Command = {
 	data: {

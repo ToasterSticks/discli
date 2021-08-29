@@ -1,4 +1,5 @@
 import { resolveEmojis, resolveMentions } from "../utils/resolve";
+
 import type { Command } from "../types/Command";
 
 const command: Command = {

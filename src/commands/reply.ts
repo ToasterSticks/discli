@@ -1,6 +1,7 @@
 import { resolveEmojis, resolveMentions } from "../utils/resolve";
-import type { Command } from "../types/Command";
 import { TextChannel } from "discord.js";
+
+import type { Command } from "../types/Command";
 
 const command: Command = {
 	data: {

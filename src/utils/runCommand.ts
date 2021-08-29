@@ -1,5 +1,6 @@
-import type { Client } from "discord.js";
 import { config } from "../config";
+
+import type { Client } from "discord.js";
 
 export function runCommand(input: string, client: Client<true>) {
 	const commandArgs = input.slice(config.prefix.length).trim().split(/ +/);

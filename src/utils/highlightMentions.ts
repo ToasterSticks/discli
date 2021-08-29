@@ -1,9 +1,8 @@
 import { blue, bold, hex } from "chalk";
-import { Message } from "discord.js";
 
-export function highlightMentions(match: string, g1: string, id: string, message: Message) {
-	if (!(message instanceof Message)) return match;
+import type { Message } from "discord.js";
 
+export function highlightMentions([match, g1, id]: [string, string, string], message: Message) {
 	const type = getMentionType(g1)!;
 
 	const isMentioned = message.mentions.has(message.client.user!);
