@@ -5,7 +5,7 @@ import { loadFiles } from "./loadFiles";
 import type { Client, ClientEvents } from "discord.js";
 import type { DiscordEvent } from "../types/DiscordEvent";
 
-async function startEventHandler(client: Client): Promise<ExtendedMap<string, DiscordEvent>> {
+async function startEventHandler(client: Client<true>): Promise<ExtendedMap<string, DiscordEvent>> {
 	const { events } = client.maps;
 	await loadFiles(events, join(__dirname, "..", "events"), client);
 

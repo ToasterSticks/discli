@@ -1,6 +1,7 @@
 import type { Widgets } from "blessed";
 
 export const chatBoxOptions: Widgets.LogOptions = {
+	mouse: true,
 	scrollable: true,
 	scrollbar: {
 		style: {
@@ -12,6 +13,10 @@ export const chatBoxOptions: Widgets.LogOptions = {
 	tags: true,
 	border: {
 		type: "line"
+	},
+	padding: {
+		left: 1,
+		right: 1
 	},
 	style: {
 		fg: "white",
@@ -33,6 +38,10 @@ export const chatInputOptions: Widgets.TextareaOptions = {
 	height: "20%",
 	border: {
 		type: "line"
+	},
+	padding: {
+		left: 1,
+		right: 1
 	},
 	style: {
 		fg: "white",

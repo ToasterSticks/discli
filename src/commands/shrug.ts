@@ -1,4 +1,5 @@
 import { resolveEmojis, resolveMentions } from "../utils/resolve";
+
 import type { Command } from "../types/Command";
 
 const command: Command = {
@@ -6,8 +7,8 @@ const command: Command = {
 		name: "shrug",
 		description: "implement /shrug from discord",
 		usage: `
-- {prefix}shrug
-- {{prefix}}shrug message
+			- {{prefix}}shrug
+			- {{prefix}}shrug message
 	`
 	},
 	async execute(input, client) {

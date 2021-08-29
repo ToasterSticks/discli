@@ -1,11 +1,15 @@
-import type { Client, Message } from "discord.js";
+import { blue, bold, gray, hex } from "chalk";
 import { ExtendedMap } from "extended-collections";
+import { Util } from "discord.js";
+import { highlightMentions } from "../utils/highlightMentions";
 import { resolveAttachmentLinks } from "../utils/resolve";
+
+import type { Client, Message } from "discord.js";
 
 export class Cache {
 	private readonly cacheLimit: number;
 	public channels: ExtendedMap<string, CacheChannel>;
-	public constructor(client: Client, cacheLimit = 50, attachments = true) {
+	public constructor(client: Client<true>, cacheLimit = 50, attachments = true) {
 		this.cacheLimit = cacheLimit;
 		const channels = client.channels.cache.map((_, key) => {
 			const arr: [string, CacheChannel] = [key, new CacheChannel(this.cacheLimit, attachments)];
@@ -72,7 +76,18 @@ export class CacheChannel {
 	}
 
 	private formatMessage(message: Message) {
-		const msgStr = resolveAttachmentLinks(message, this.attachments) + (message.editedTimestamp ? " (edited)" : "");
-		return `${message.author.tag}: ${msgStr}`;
+		const msgStr =
+			resolveAttachmentLinks(message, this.attachments) + (message.editedTimestamp ? gray(" (edited)") : "");
+
+		const highlightedMentions = msgStr.replace(/<(@[!&]|#)(\d{17,19})>/g, (...groups: [string, string, string]) =>
+			highlightMentions(groups, message)
+		);
+
+		return Util.cleanContent(
+			`${
+				message.member?.displayColor ? hex(message.member.displayHexColor)(message.author.tag) : message.author.tag
+			}: ${highlightedMentions.replaceAll("@everyone", bold(blue("@everyone")))}`,
+			message.channel
+		);
 	}
 }

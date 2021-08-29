@@ -1,15 +1,16 @@
 import { resolveEmojis, resolveMentions } from "../utils/resolve";
-import type { Command } from "../types/Command";
 import { TextChannel } from "discord.js";
+
+import type { Command } from "../types/Command";
 
 const command: Command = {
 	data: {
 		name: "reply",
 		description: "reply to a message by id",
 		usage: `
-- {{prefix}}reply [message-id] message # defaults to no mention
-- {{prefix}}reply [message-reference] message # the message number of the message from the bottom
-- {{prefix}}reply [message-id|message-reference] message --mention # reply with mention
+			- {{prefix}}reply [message-id] message # defaults to no mention
+			- {{prefix}}reply [message-reference] message # the message number of the message from the bottom
+			- {{prefix}}reply [message-id|message-reference] message --mention # reply with mention
 		`
 	},
 	async execute(input, client) {
