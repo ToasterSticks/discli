@@ -32,8 +32,7 @@ function resolveEmojis(str: string, client: Client<true>): string {
 
 		const predicate = ({ name, animated }: GuildEmoji) => (hasPremium || !animated) && name === g1;
 
-		const emoji =
-			client.currentGuild.emojis.cache.find(predicate) ?? hasPremium ? client.emojis.cache.find(predicate) : null;
+		const emoji = client.currentGuild.emojis.cache.find(predicate) ?? client.emojis.cache.find(predicate);
 
 		return emoji?.toString() ?? match;
 	});
