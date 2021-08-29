@@ -5,6 +5,10 @@ const command: Command = {
 	data: {
 		name: "shrug",
 		description: "implement /shrug from discord",
+		usage: `
+- {prefix}shrug
+- {{prefix}}shrug message
+	`
 	},
 	async execute(input, client) {
 		client.currentChannel.send(

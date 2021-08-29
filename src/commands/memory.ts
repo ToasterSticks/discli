@@ -4,6 +4,9 @@ const command: Command = {
 	data: {
 		name: "memory",
 		description: "display memory usage",
+		usage: `
+- {{prefix}}memory
+`,
 	},
 	async execute(_, client) {
 		client.appendToScreen(
