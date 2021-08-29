@@ -9,7 +9,7 @@ const command: Command = {
 		client.appendToScreen(
 			`Memory usage: ${Math.round(
 				process.memoryUsage().heapTotal / 1024 / 1024
-			)}M`
+			)}mb`
 		);
 	},
 };
