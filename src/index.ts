@@ -95,10 +95,6 @@ const client = new Client(options).on("ready", async () => {
 	client.components.chatInput.focus();
 
 	client.components.screen.render();
-
-	const messages = await client.currentChannel.messages.search({ sortOrder: 'asc' });
-
-	for (const message of messages.values()) client.emit('messageCreate', message);
 });
 
 client.login(token);

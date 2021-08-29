@@ -43,10 +43,6 @@ const command: Command = {
 		client.appendToScreen(`discli: joined #${channel.name}`);
 		client.components.screen.title = `discli (${client.currentGuild.name})`;
 		client.components.screen.render();
-
-		const messages = await client.currentChannel.messages.search({ sortOrder: 'asc' });
-
-		for (const message of messages.values()) client.emit('messageCreate', message);
 	},
 };
 
