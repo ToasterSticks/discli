@@ -13,7 +13,7 @@ const command: Command = {
 		`
 	},
 	async execute(input, client) {
-		let channel: Channel | undefined;
+		let channel;
 		// A single channel id as param
 		if (/^\d{17,19}$/.test(input)) {
 			channel = client.channels.cache.get(input);
