@@ -12,31 +12,29 @@ const command: Command = {
 		`
 	},
 	async execute(input, client) {
-		let channel;
+		let channel: TextChannel | undefined;
 		// A single channel id as param
 		if (/^\d{17,19}$/.test(input)) {
-			channel = client.channels.cache.get(input);
+			channel = client.channels.cache.get(input) as TextChannel | undefined;
 			// {prefix}channel guild name channel-name
 		} else if (/^.+ #?\S+$/.test(input)) {
 			const match = /^(?<guildName>.+) #?(?<channelName>\S+)$/.exec(input);
 			if (match) {
-				const guildName = match.groups?.guildName;
-				const guild = client.guilds.cache.find((g) => g.name === guildName!);
+				const guildName = match.groups?.guildName ?? "";
+				const guild = client.guilds.cache.find((g) => g.name === guildName);
 				if (!guild) {
-					client.appendToScreen(`discli: Invalid server ${guildName ?? ""}`);
+					client.appendToScreen(`discli: Invalid server ${guildName}`);
 					return;
 				}
-				channel = guild.channels.cache.find((c) => c.name === match.groups?.channelName);
+				channel = guild.channels.cache.find(
+					(c): c is TextChannel => c.name === match.groups?.channelName && c instanceof TextChannel
+				);
 			}
 		} else {
 			client.appendToScreen("discli: Invalid arguments");
 		}
 		if (!channel) {
 			client.appendToScreen("discli: Invalid channel");
-			return;
-		}
-		if (!(channel instanceof TextChannel)) {
-			client.appendToScreen("discli: You can only use text channels");
 			return;
 		}
 		const ch = client.cache.channels.get(channel.id);
