@@ -98,7 +98,7 @@ export class CacheChannel {
 		const highlightedMentions = msgStr.replace(/<(?:@[!&]|#)(\d{17,19})>/g, highlightMention);
 
 		return Util.cleanContent(
-			` ${
+			`${
 				message.member?.displayColor
 					? hex(message.member.displayHexColor)(message.author.tag)
 					: message.author.tag

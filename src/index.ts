@@ -49,7 +49,7 @@ const client = new Client(options).on("ready", async () => {
 	});
 	client.appendToScreen = (str) => {
 		const ch = client.cache.channels.get(client.currentChannel.id);
-		ch?.addText(` ${str}`);
+		ch?.addText(str);
 		client.components.chatBox.setContent(ch?.displayString() ?? "");
 		client.components.screen.render();
 	};
