@@ -5,6 +5,10 @@ const command: Command = {
 	data: {
 		name: "channel",
 		description: "Change current channel",
+		usage: `
+- {{prefix}}channel [Server Name] [channel-name]
+- {{prefix}}channel [channel-id]
+		`
 	},
 	async execute(input, client: Client) {
 		let channel;
