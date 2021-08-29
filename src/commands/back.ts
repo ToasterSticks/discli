@@ -1,4 +1,3 @@
-import type { Client } from "discord.js";
 import type { Command } from "../types/Command";
 
 const command: Command = {
@@ -9,7 +8,7 @@ const command: Command = {
 			- {{prefix}}back
 		`
 	},
-	async execute(input, client: Client<true>) {
+	async execute(input, client) {
 		const channel = client.lastChannel;
 		if (channel.id === client.currentChannel.id) {
 			client.appendToScreen("discli: You are already in this channel");

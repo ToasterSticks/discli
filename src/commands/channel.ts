@@ -1,6 +1,5 @@
 import { TextChannel } from "discord.js";
 
-import type { Client } from "discord.js";
 import type { Command } from "../types/Command";
 
 const command: Command = {
@@ -12,7 +11,7 @@ const command: Command = {
 			- {{prefix}}channel [channel-id]
 		`
 	},
-	async execute(input, client: Client<true>) {
+	async execute(input, client) {
 		let channel;
 		// A single channel id as param
 		if (/^\d{17,19}$/.test(input)) {

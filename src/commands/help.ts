@@ -19,9 +19,9 @@ const command: Command = {
 		} else {
 			const { name, description, usage } = command.data;
 			client.appendToScreen(
-				stripIndents`${config.prefix}${name}: ${description}\nusage:\n${usage
-					.replaceAll("{{prefix}}", config.prefix)
-					.trim()}`
+				stripIndents(
+					`${config.prefix}${name}: ${description}\nusage:\n${usage.replaceAll("{{prefix}}", config.prefix).trim()}`
+				)
 			);
 		}
 	}
