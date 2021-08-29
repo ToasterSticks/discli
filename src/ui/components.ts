@@ -1,24 +1,24 @@
-import { Widgets } from "blessed";
+import type { Widgets } from "blessed";
 
 export const chatBoxOptions: Widgets.LogOptions = {
 	scrollable: true,
 	scrollbar: {
 		style: {
 			bg: "blue"
-		},
+		}
 	},
 	width: "100%",
 	height: "84%",
 	tags: true,
 	border: {
-		type: "line",
+		type: "line"
 	},
 	style: {
 		fg: "white",
 		border: {
-			fg: "#f0f0f0",
-		},
-	},
+			fg: "#f0f0f0"
+		}
+	}
 };
 
 export const chatInputOptions: Widgets.TextareaOptions = {
@@ -32,12 +32,12 @@ export const chatInputOptions: Widgets.TextareaOptions = {
 	width: "90%",
 	height: "20%",
 	border: {
-		type: "line",
+		type: "line"
 	},
 	style: {
 		fg: "white",
 		border: {
-			fg: "#f0f0f0",
-		},
-	},
+			fg: "#f0f0f0"
+		}
+	}
 };

@@ -1,11 +1,11 @@
-import { Message } from "discord.js";
-import { DiscordEvent } from "../types/DiscordEvent";
+import type { DiscordEvent } from "../types/DiscordEvent";
+import type { Message } from "discord.js";
 
 const event: DiscordEvent = {
 	data: {
 		name: "message",
 		description: "Recieve messages from discord and update sreen",
-		event: "messageCreate",
+		event: "messageCreate"
 	},
 	async execute(message: Message) {
 		const { client } = message;
@@ -15,7 +15,7 @@ const event: DiscordEvent = {
 		if (message.channelId !== client.currentChannel.id) return;
 		client.components.chatBox.setContent(ch.displayString());
 		client.components.screen.render();
-	},
+	}
 };
 
 export default event;

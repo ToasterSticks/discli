@@ -1,5 +1,6 @@
-import { Client, TextChannel } from "discord.js";
-import { Command } from "../types/Command";
+import type { Client } from "discord.js";
+import type { Command } from "../types/Command";
+import { TextChannel } from "discord.js";
 
 const command: Command = {
 	data: {
@@ -22,12 +23,10 @@ const command: Command = {
 				const guildName = match.groups?.guildName;
 				const guild = client.guilds.cache.find((g) => g.name === guildName!);
 				if (!guild) {
-					client.appendToScreen(`discli: Invalid server ${guildName}`);
+					client.appendToScreen(`discli: Invalid server ${guildName ?? ""}`);
 					return;
 				}
-				channel = guild.channels.cache.find(
-					(c) => c.name === match.groups?.channelName!
-				);
+				channel = guild.channels.cache.find((c) => c.name === match.groups?.channelName);
 			}
 		} else {
 			client.appendToScreen("discli: Invalid arguments");
@@ -48,7 +47,7 @@ const command: Command = {
 		client.appendToScreen(`discli: joined #${channel.name}`);
 		client.components.screen.title = `discli (${client.currentGuild.name})`;
 		client.components.screen.render();
-	},
+	}
 };
 
 export default command;

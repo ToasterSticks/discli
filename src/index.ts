@@ -1,16 +1,19 @@
-import { log, screen, textarea, Widgets } from "blessed";
-import { Client, ClientOptions, TextChannel } from "discord.js";
-import { ExtendedMap } from "extended-collections";
-import { join } from "path";
-import { Cache } from "./classes/Cache";
-import { config } from "./config";
-import { Command } from "./types/Command";
-import { DiscordEvent } from "./types/DiscordEvent";
+import { Client, TextChannel } from "discord.js";
 import { chatBoxOptions, chatInputOptions } from "./ui/components";
+import { log, screen, textarea } from "blessed";
+import { resolveEmojis, resolveMentions } from "./utils/resolve";
+import { Cache } from "./classes/Cache";
+import { ExtendedMap } from "extended-collections";
+import { config } from "./config";
+import { join } from "path";
 import { loadFiles } from "./utils/loadFiles";
-import { resolveEmojis, resolveMentions } from './utils/resolve';
 import { runCommand } from "./utils/runCommand";
 import { startEventHandler } from "./utils/startEventHandler";
+
+import type { ClientOptions } from "discord.js";
+import type { Command } from "./types/Command";
+import type { DiscordEvent } from "./types/DiscordEvent";
+import type { Widgets } from "blessed";
 
 const { token, defaultChannel, prefix } = config;
 
@@ -35,9 +38,7 @@ declare module "discord.js" {
 const options: ClientOptions = {};
 
 const client = new Client(options).on("ready", () => {
-	let cc =
-		client.channels.cache.get(defaultChannel) ||
-		client.channels.cache.find((ch) => ch.isText());
+	const cc = client.channels.cache.get(defaultChannel) ?? client.channels.cache.find((ch) => ch.isText());
 	if (!cc || !(cc instanceof TextChannel)) {
 		throw new Error("Could not find any text channels");
 	}
@@ -45,7 +46,7 @@ const client = new Client(options).on("ready", () => {
 	client.currentGuild = client.currentChannel.guild;
 	const scr = screen({
 		title: `$discli (${client.currentGuild.name})`,
-		smartCSR: true,
+		smartCSR: true
 	});
 	client.appendToScreen = (str) => {
 		const ch = client.cache.channels.get(client.currentChannel.id);
@@ -60,12 +61,12 @@ const client = new Client(options).on("ready", () => {
 	client.components = {
 		screen: scr,
 		chatBox: chBox,
-		chatInput: chInput,
+		chatInput: chInput
 	};
 
 	client.maps = {
 		commands: new ExtendedMap(),
-		events: new ExtendedMap(),
+		events: new ExtendedMap()
 	};
 
 	startEventHandler(client);

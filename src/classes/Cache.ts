@@ -3,15 +3,12 @@ import { ExtendedMap } from "extended-collections";
 import { resolveAttachmentLinks } from "../utils/resolve";
 
 export class Cache {
-	cacheLimit: number;
-	channels: ExtendedMap<string, CacheChannel>;
-	constructor(client: Client, cacheLimit = 50, attachments = true) {
+	private readonly cacheLimit: number;
+	public channels: ExtendedMap<string, CacheChannel>;
+	public constructor(client: Client, cacheLimit = 50, attachments = true) {
 		this.cacheLimit = cacheLimit;
 		const channels = client.channels.cache.map((_, key) => {
-			const arr: [string, CacheChannel] = [
-				key,
-				new CacheChannel(cacheLimit, attachments),
-			];
+			const arr: [string, CacheChannel] = [key, new CacheChannel(this.cacheLimit, attachments)];
 			return arr;
 		});
 		this.channels = new ExtendedMap(channels);
@@ -19,17 +16,17 @@ export class Cache {
 }
 
 export class CacheChannel {
-	attachments: boolean;
-	max: number;
-	messages = new ExtendedMap<string, Message>();
-	messageList: string[] = [];
+	private readonly attachments: boolean;
+	private readonly max: number;
+	public messages = new ExtendedMap<string, Message>();
+	public messageList: string[] = [];
 
-	constructor(cacheLimit = 50, attachments = true) {
+	public constructor(cacheLimit = 50, attachments = true) {
 		this.max = cacheLimit;
 		this.attachments = attachments;
 	}
 
-	addMessage(message: Message) {
+	public addMessage(message: Message) {
 		if (!message.content && !message.attachments.size) return;
 		this.messages.set(message.id, message);
 		this.messageList.push(this.formatMessage(message));
@@ -41,7 +38,7 @@ export class CacheChannel {
 		}
 	}
 
-	removeMessage(message: Message) {
+	public removeMessage(message: Message) {
 		this.messages.delete(message.id);
 		this.messageList = this.newMessageList();
 		if (message.channelId === message.client.currentChannel.id) {
@@ -50,7 +47,7 @@ export class CacheChannel {
 		}
 	}
 
-	editMessage(message: Message) {
+	public editMessage(message: Message) {
 		try {
 			this.messages.update(message.id, () => message);
 		} catch {}
@@ -61,23 +58,21 @@ export class CacheChannel {
 		}
 	}
 
-	newMessageList() {
+	public newMessageList() {
 		return [...this.messages.values()].map(this.formatMessage, this);
 	}
 
-	addText(str: string) {
+	public addText(str: string) {
 		this.messageList.shift();
 		this.messageList.push(str);
 	}
 
-	displayString() {
+	public displayString() {
 		return this.messageList.join("\n");
 	}
 
-	formatMessage(message: Message) {
-		const msgStr =
-			resolveAttachmentLinks(message, this.attachments) +
-			(message.editedTimestamp ? " (edited)" : "");
+	private formatMessage(message: Message) {
+		const msgStr = resolveAttachmentLinks(message, this.attachments) + (message.editedTimestamp ? " (edited)" : "");
 		return `${message.author.tag}: ${msgStr}`;
 	}
 }

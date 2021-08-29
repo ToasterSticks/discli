@@ -1,4 +1,4 @@
-import { Command } from "../types/Command";
+import type { Command } from "../types/Command";
 
 const command: Command = {
 	data: {
@@ -6,15 +6,12 @@ const command: Command = {
 		description: "display memory usage",
 		usage: `
 - {{prefix}}memory
-`,
+`
 	},
 	async execute(_, client) {
-		client.appendToScreen(
-			`Memory usage: ${Math.round(
-				process.memoryUsage().heapTotal / 1024 / 1024
-			)}mb`
-		);
-	},
+		client.appendToScreen(`Memory usage: ${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}mb`);
+	}
+
 };
 
 export default command;
