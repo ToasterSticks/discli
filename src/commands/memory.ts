@@ -9,8 +9,9 @@ const command: Command = {
 `
 	},
 	async execute(_, client) {
-		client.appendToScreen(`Memory usage: ${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}M`);
+		client.appendToScreen(`Memory usage: ${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}mb`);
 	}
+
 };
 
 export default command;
