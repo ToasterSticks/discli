@@ -23,6 +23,7 @@ declare module "discord.js" {
 			chatBox: Widgets.Log;
 			chatInput: Widgets.TextareaElement;
 		};
+		lastChannel: TextChannel;
 		maps: {
 			events: ExtendedMap<string, DiscordEvent>;
 			commands: ExtendedMap<string, Command>;
@@ -41,6 +42,7 @@ const client = new Client(options).on("ready", async () => {
 	if (!cc || !(cc instanceof TextChannel)) {
 		throw new Error("Could not find any text channels");
 	}
+	client.lastChannel = cc;
 	client.currentChannel = cc;
 	client.currentGuild = client.currentChannel.guild;
 	const scr = screen({

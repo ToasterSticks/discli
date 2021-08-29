@@ -3,31 +3,17 @@ import { Command } from '../types/Command';
 
 const command: Command = {
 	data: {
-		name: 'channel',
-		description: 'Change current channel',
+		name: 'back',
+		description: 'Go back to previous channel',
 	},
 	async execute(input, client: Client) {
-		let channel;
-		// A single channel id as param
-		if (/^\d{17,19}$/.test(input)) {
-			channel = client.channels.cache.get(input);
-			// {prefix}channel guild name channel-name
-		} else if (/^.+ #?\S+$/.test(input)) {
-			const match = /^(?<guildName>.+) #?(?<channelName>\S+)$/.exec(input);
-			if (match) {
-				const guildName = match.groups?.guildName;
-				const guild = client.guilds.cache.find((g) => g.name === guildName!);
-				if (!guild) {
-					client.appendToScreen(`discli: Invalid server ${guildName}`);
-					return;
-				}
-				channel = guild.channels.cache.find((c) => c.name === match.groups?.channelName!);
-			}
-		} else {
-			client.appendToScreen('discli: Invalid arguments');
+		const channel = client.lastChannel;
+		if (channel.id === client.currentChannel.id) {
+			client.appendToScreen('discli: You are already in this channel');
+			return;
 		}
-		if (!channel) {
-			client.appendToScreen('discli: Invalid channel');
+		if (channel.deleted) {
+			client.appendToScreen('discli: Your previous channel was deleted');
 			return;
 		}
 		if (!(channel instanceof TextChannel)) {
