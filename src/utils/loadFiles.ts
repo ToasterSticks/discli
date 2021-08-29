@@ -2,9 +2,9 @@ import { join } from "path";
 import { readdir } from "fs/promises";
 
 import type { Client } from "discord.js";
+import type { Command } from "../types/Command";
 import type { DiscordEvent } from "../types/DiscordEvent";
 import type { ExtendedMap } from "extended-collections";
-import { Command } from "../types/Command";
 
 type handledTypes = DiscordEvent | Command;
 

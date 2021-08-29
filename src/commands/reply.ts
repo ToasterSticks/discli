@@ -1,6 +1,6 @@
 import { resolveEmojis, resolveMentions } from "../utils/resolve";
+import type { Command } from "../types/Command";
 import { TextChannel } from "discord.js";
-import { Command } from "../types/Command";
 
 const command: Command = {
 	data: {
@@ -10,10 +10,11 @@ const command: Command = {
 - {{prefix}}reply [message-id] message # defaults to no mention
 - {{prefix}}reply [message-reference] message # the message number of the message from the bottom
 - {{prefix}}reply [message-id|message-reference] message --mention # reply with mention
-		`,
+		`
 	},
 	async execute(input, client) {
-		let content: string, id: string;
+		let content: string;
+		let id: string;
 		let mention = false;
 		if (/^\d{17-19}/.test(input)) {
 			const match = /^(?<id>\d{17-19}) (?<content>.+)}/.exec(input);
@@ -23,10 +24,7 @@ const command: Command = {
 			const match = /^(?<id>\d+) (?<content>.+)/.exec(input);
 			content = match?.groups?.content ?? "";
 			id = match?.groups?.id ?? "";
-			id =
-				client.cache.channels
-					.get(client.currentChannel.id)!
-					.messages.at?.(-parseInt(id))?.[1]?.id ?? id;
+			id = client.cache.channels.get(client.currentChannel.id)!.messages.at(-parseInt(id, 10))?.[1]?.id ?? id;
 		} else {
 			client.appendToScreen("discli: Invalid command usage");
 			return;
@@ -41,18 +39,16 @@ const command: Command = {
 		if (!ch || !(ch instanceof TextChannel)) {
 			return;
 		}
-		const message =
-			client.cache.channels.get(client.currentChannel.id)?.messages.get(id) ??
-			ch.messages.cache.get(id);
+		const message = client.cache.channels.get(client.currentChannel.id)?.messages.get(id) ?? ch.messages.cache.get(id);
 		if (!message) {
 			client.appendToScreen("discli: Could not find message");
 			return;
 		}
 		message.reply({
 			content: resolveEmojis(resolveMentions(content, client), client),
-			allowedMentions: { repliedUser: mention },
+			allowedMentions: { repliedUser: mention }
 		});
-	},
+	}
 };
 
 export default command;

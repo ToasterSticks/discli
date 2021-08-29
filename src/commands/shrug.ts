@@ -1,5 +1,5 @@
-import { resolveEmojis, resolveMentions } from '../utils/resolve';
-import { Command } from "../types/Command";
+import { resolveEmojis, resolveMentions } from "../utils/resolve";
+import type { Command } from "../types/Command";
 
 const command: Command = {
 	data: {
@@ -11,10 +11,8 @@ const command: Command = {
 	`
 	},
 	async execute(input, client) {
-		client.currentChannel.send(
-			`${resolveEmojis(resolveMentions(input, client), client)} ¯\\_(ツ)\_/¯`
-		);
-	},
+		client.currentChannel.send(`${resolveEmojis(resolveMentions(input, client), client)} ¯\\_(ツ)\_/¯`);
+	}
 };
 
 export default command;
