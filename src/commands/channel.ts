@@ -1,4 +1,3 @@
-import type { Channel } from "discord.js";
 import { TextChannel } from "discord.js";
 
 import type { Command } from "../types/Command";

@@ -79,7 +79,7 @@ export class CacheChannel {
 		const msgStr =
 			resolveAttachmentLinks(message, this.attachments) + (message.editedTimestamp ? gray(" (edited)") : "");
 
-		const highlightedMentions = msgStr.replace(/<(@[!&]|#)(\d{17,19})>/g, (...groups: [string, string, string]) =>
+		const highlightedMentions = msgStr.replace(/<(@[!&]?|#)(\d{17,19})>/g, (...groups: [string, string, string]) =>
 			highlightMentions(groups, message)
 		);
 
