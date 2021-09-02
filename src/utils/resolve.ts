@@ -1,4 +1,4 @@
-import { underline } from "chalk";
+import { underline } from "./colors";
 
 import type { Client, GuildEmoji, Message } from "discord.js";
 

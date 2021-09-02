@@ -1,4 +1,4 @@
-import { blue, bold, gray, hex } from "chalk";
+import { blue, bold, gray, hex } from "../utils/colors";
 import { ExtendedMap } from "extended-collections";
 import { Util } from "discord.js";
 import { highlightMentions } from "../utils/highlightMentions";
@@ -85,7 +85,7 @@ export class CacheChannel {
 
 		return Util.cleanContent(
 			`${
-				message.member?.displayColor ? hex(message.member.displayHexColor)(message.author.tag) : message.author.tag
+				message.member?.displayColor ? hex(message.author.tag, message.member.displayHexColor) : message.author.tag
 			}: ${highlightedMentions.replaceAll("@everyone", bold(blue("@everyone")))}`,
 			message.channel
 		);
