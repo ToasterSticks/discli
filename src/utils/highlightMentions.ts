@@ -1,4 +1,4 @@
-import { blue, bold, hex } from "chalk";
+import { blue, bold, hex } from "./colors";
 
 import type { Message } from "discord.js";
 
@@ -17,7 +17,7 @@ export function highlightMentions([match, g1, id]: [string, string, string], mes
 			if (!role) return match;
 
 			const roleColor = role.color ? role.hexColor : "#d3d3d3";
-			return isMentioned && message.member!.roles.cache.has(id) ? bold(hex(roleColor)(match)) : hex(roleColor)(match);
+			return isMentioned && message.member!.roles.cache.has(id) ? bold(hex(match, roleColor)) : hex(match, roleColor);
 		}
 		case "channel": {
 			if (message.guild!.channels.cache.has(id)) return blue(match);
